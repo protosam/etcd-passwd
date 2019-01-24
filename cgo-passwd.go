@@ -33,6 +33,9 @@ type PasswdInterface interface {
 	Getgrent() (*Passwd, error)
 	Getgrnam(name string) (*Passwd, error)
 	Getgrgid(gid GID) (*Passwd, error)
+	
+	Getspent() (*Passwd, error)
+	Getspnam(name string) (*Passwd, error)
 }
 
 var impl PasswdInterface
