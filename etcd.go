@@ -45,7 +45,7 @@ func AddUser(p *Passwd) error {
 
 const (
 	etcdEndpoint = "http://localhost:2379"
-	etcdPrefix   = "/etcd-sshd"
+	etcdPrefix   = "/etcd-passwd"
 )
 
 func init() {
