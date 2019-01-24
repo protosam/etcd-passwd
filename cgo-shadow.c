@@ -15,7 +15,7 @@ enum nss_status _nss_etcd_endspent (void){
 }
 
 enum nss_status _nss_etcd_getspent_r (struct spwd *result, char *buffer, size_t buflen, int *errnop){
-	return go_getspent_r(result, buffer, buflen, errnop)
+	return go_getspent_r(result, buffer, buflen, errnop);
 }
 
 enum nss_status _nss_etcd_getspnam_r (const char *name, struct spwd *result, char *buffer, size_t buflen, int *errnop){
