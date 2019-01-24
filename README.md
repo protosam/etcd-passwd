@@ -40,7 +40,7 @@ $ go run cmd/etcdadduser/main.go -name peter -uid 10000 -gid 10000 -gecos 'Peter
 You can see added user on etcd
 
 ```console
-$ ETCDCTL_API=3 etcdctl get --print-value-only  /etcd-sshd/users/10000
+$ ETCDCTL_API=3 etcdctl get --print-value-only  /etcd-passwd/users/10000
 {"Name":"peter","Passwd":"!","UID":10000,"GID":10000,"Gecos":"Peter Rabbit","Dir":"/home/peter","Shell":"/bin/sh"}
 ```
 
