@@ -20,7 +20,7 @@ func go_endgrent() nssStatus {
 }
 
 // export go_getgrent_r
-func go_getgrent_r(result, buffer, buf *C.char C.size_t, errnop *C.int) nssStatus {
+func go_getgrent_r(grp *C.struct_group, buf *C.char, buflen C.size_t, errnop *C.int) nssStatus {
 	// Get all group entries
 	p, err := impl.Getgrent()
 	if err == ErrNotFound {
