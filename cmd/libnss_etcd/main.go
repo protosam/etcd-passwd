@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "github.com/ueokande/etcd-sshd"
+	_ "github.com/protosam/etcd-passwd"
 )
 
 func main() {
