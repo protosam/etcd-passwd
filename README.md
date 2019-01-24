@@ -1,13 +1,14 @@
 # etcd-passwd
 
 Passwd management by etcd.
-This is a test project to manage linu users on etcd.
+This is a test project to manage Linux users on etcd.
 
 ## Install
 
 Install `libnss_etcd.so.2` to your local:
 
 ```console
+# go get github.com/protosam/etcd-passwd
 # build libnss_etcd.so.2
 $ make
 
