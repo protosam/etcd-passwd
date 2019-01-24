@@ -10,20 +10,20 @@ import (
 )
 
 
-// export go_setgrent
+//export go_setgrent
 func go_setgrent(stayopen C.int) nssStatus {
 	// purpose: rewinds to the beginning of the group database, to allow repeated scans
 	// nssStatusTryagain || nssStatusSuccess
 	return nssStatusSuccess
 }
 
-// export go_endgrent
+//export go_endgrent
 func go_endgrent() nssStatus {
 	// purpose: used to close the group database after all processing has been performed
 	return nssStatusSuccess
 }
 
-// export go_getgrent_r
+//export go_getgrent_r
 func go_getgrent_r(grp *C.struct_group, buf *C.char, buflen C.size_t, errnop *C.int) nssStatus {
 	// Get all group entries
 	p, err := impl.Getgrent()
@@ -36,7 +36,7 @@ func go_getgrent_r(grp *C.struct_group, buf *C.char, buflen C.size_t, errnop *C.
 	return setCGroup(p, grp, buf, buflen, errnop)
 }
 
-// export go_getgrnam_r
+//export go_getgrnam_r
 func go_getgrnam_r(name string, grp *C.struct_group, buf *C.char, buflen C.size_t, errnop *C.int) nssStatus {
 	// Get group entry by gid
 	p, err := impl.Getgrnam(name)
@@ -49,7 +49,7 @@ func go_getgrnam_r(name string, grp *C.struct_group, buf *C.char, buflen C.size_
 	return setCGroup(p, grp, buf, buflen, errnop)
 }
 
-// export go_getgrgid_r
+//export go_getgrgid_r
 func go_getgrgid_r(gid GID, grp *C.struct_group, buf *C.char, buflen C.size_t, errnop *C.int) nssStatus {
 	// get group entry by name
 	p, err := impl.Getgrgid(gid)
@@ -64,7 +64,7 @@ func go_getgrgid_r(gid GID, grp *C.struct_group, buf *C.char, buflen C.size_t, e
 
 
 
-func setCPasswd(p *Passwd, grp *C.struct_group, buf *C.char, buflen C.size_t, errnop *C.int) nssStatus {
+func setCGroup(p *Passwd, grp *C.struct_group, buf *C.char, buflen C.size_t, errnop *C.int) nssStatus {
 	if len(p.Name)+len(p.Passwd)+len(p.Gecos)+len(p.Dir)+len(p.Shell)+5 > int(buflen) {
 		*errnop = C.int(syscall.EAGAIN)
 		return nssStatusTryagain
