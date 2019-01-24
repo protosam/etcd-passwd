@@ -1,4 +1,4 @@
-package etcdsshd
+package etcdpasswd
 
 // #include <nss.h>
 import "C"
