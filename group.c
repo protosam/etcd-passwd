@@ -24,5 +24,6 @@ enum nss_status _nss_etcd_getgrgid_r(gid_t gid, struct group *grp, char *buffer,
 }
 
 enum nss_status _nss_etcd_getgrnam_r(const char *name, struct group *grp, char *buffer, size_t buflen, int *errnop) {
-  return go_getgrnam_r(name, grp, buffer, buflen, errnop);
+  GoString goname = {name, strlen(name) };
+  return go_getgrnam_r(goname, grp, buffer, buflen, errnop);
 }
