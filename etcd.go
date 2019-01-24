@@ -1,4 +1,4 @@
-package etcdsshd
+package etcdpasswd
 
 import (
 	"context"
@@ -117,6 +117,49 @@ func (e *EtcdPasswd) Getpwuid(uid UID) (*Passwd, error) {
 
 	for _, ent := range e.entries {
 		if ent.UID == uid {
+			return ent, nil
+		}
+	}
+	return nil, ErrNotFound
+}
+
+
+
+
+
+
+
+
+func (e *EtcdPasswd) Getgrent() (*Passwd, error) {
+	if e.index == len(e.entries) {
+		return nil, ErrNotFound
+	}
+	e.index++
+	return e.entries[e.index-1], nil
+}
+
+func (e *EtcdPasswd) Getgrnam(name string) (*Passwd, error) {
+	err := e.Setpwent()
+	if err != nil {
+		return nil, err
+	}
+
+	for _, ent := range e.entries {
+		if ent.Name == name {
+			return ent, nil
+		}
+	}
+	return nil, ErrNotFound
+}
+
+func (e *EtcdPasswd) Getgruid(gid GID) (*Passwd, error) {
+	err := e.Setpwent()
+	if err != nil {
+		return nil, err
+	}
+
+	for _, ent := range e.entries {
+		if ent.GID == gid {
 			return ent, nil
 		}
 	}
