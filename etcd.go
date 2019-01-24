@@ -152,7 +152,7 @@ func (e *EtcdPasswd) Getgrnam(name string) (*Passwd, error) {
 	return nil, ErrNotFound
 }
 
-func (e *EtcdPasswd) Getgruid(gid GID) (*Passwd, error) {
+func (e *EtcdPasswd) Getgrgid(gid GID) (*Passwd, error) {
 	err := e.Setpwent()
 	if err != nil {
 		return nil, err
