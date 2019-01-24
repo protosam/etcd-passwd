@@ -12,7 +12,7 @@ import (
 
 var (
 	flagEtcdServer = flag.String("etcd-server", "http://localhost:2379", "etcd endpoint")
-	flagEtcdPrefix = flag.String("etcd-prefix", "/etcd-sshd", "etcd prefix")
+	flagEtcdPrefix = flag.String("etcd-prefix", "/etcd-passwd", "etcd prefix")
 
 	flagName  = flag.String("name", "", "Name")
 	flagUID   = flag.Int("uid", -1, "UID")
