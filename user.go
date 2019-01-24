@@ -1,4 +1,4 @@
-package etcdsshd
+package etcdpasswd
 
 // #include <pwd.h>
 // #include <errno.h>
