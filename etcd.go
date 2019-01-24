@@ -168,3 +168,32 @@ func (e *EtcdPasswd) Getgrgid(gid GID) (*Passwd, error) {
 	}
 	return nil, ErrNotFound
 }
+
+
+
+
+
+
+
+
+func (e *EtcdPasswd) Getspent() (*Passwd, error) {
+	if e.index == len(e.entries) {
+		return nil, ErrNotFound
+	}
+	e.index++
+	return e.entries[e.index-1], nil
+}
+
+func (e *EtcdPasswd) Getspnam(name string) (*Passwd, error) {
+	err := e.Setpwent()
+	if err != nil {
+		return nil, err
+	}
+
+	for _, ent := range e.entries {
+		if ent.Name == name {
+			return ent, nil
+		}
+	}
+	return nil, ErrNotFound
+}
