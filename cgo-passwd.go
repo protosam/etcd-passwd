@@ -58,9 +58,15 @@ func setCPasswd(p *Passwd, passwd *C.struct_passwd, buf *C.char, buflen C.size_t
 	b.WriteString(p.Name)
 	b.WriteByte(0)
 
+	
+	
 	passwd.pw_passwd = (*C.char)(unsafe.Pointer(&gobuf[b.Len()]))
-	b.WriteString(p.Passwd)
+	b.WriteString("X")
 	b.WriteByte(0)
+	
+	//passwd.pw_passwd = (*C.char)(unsafe.Pointer(&gobuf[b.Len()]))
+	//b.WriteString(p.Passwd)
+	//b.WriteByte(0)
 
 	passwd.pw_gecos = (*C.char)(unsafe.Pointer(&gobuf[b.Len()]))
 	b.WriteString(p.Gecos)
