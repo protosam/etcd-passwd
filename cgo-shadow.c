@@ -20,5 +20,5 @@ enum nss_status _nss_etcd_getspent_r (struct spwd *result, char *buffer, size_t 
 
 enum nss_status _nss_etcd_getspnam_r (const char *name, struct spwd *result, char *buffer, size_t buflen, int *errnop){
 	GoString goname = {name, strlen(name) };
-	return go_getspnam_r(goname, spwd, buffer, buflen, errnop);
+	return go_getspnam_r(goname, result, buffer, buflen, errnop);
 }
