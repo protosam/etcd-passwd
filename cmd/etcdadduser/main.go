@@ -7,7 +7,7 @@ import (
 	"os"
 	"path/filepath"
 
-	etcdsshd "github.com/ueokande/etcd-sshd"
+	etcdsshd "github.com/protosam/etcd-passwd"
 )
 
 var (
