@@ -12,6 +12,15 @@ import (
 	"go.etcd.io/etcd/clientv3/clientv3util"
 )
 
+var etcd_v3_config clientv3.Config
+
+func init(){
+	etcd_v3_config = clientv3.Config{
+		Endpoints:   []string{etcdEndpoint},
+		DialTimeout: 2 * time.Second,
+	}
+}
+
 type EtcdPasswd struct {
 	entries []*Passwd
 	index   int
@@ -24,10 +33,7 @@ func AddUser(p *Passwd) error {
 		return err
 	}
 
-	client, err := clientv3.New(clientv3.Config{
-		Endpoints:   []string{etcdEndpoint},
-		DialTimeout: 2 * time.Second,
-	})
+	client, err := clientv3.New(etcd_v3_config)
 	if err != nil {
 		return err
 	}
@@ -54,10 +60,7 @@ func init() {
 }
 
 func (e *EtcdPasswd) Setpwent() error {
-	client, err := clientv3.New(clientv3.Config{
-		Endpoints:   []string{etcdEndpoint},
-		DialTimeout: 2 * time.Second,
-	})
+	client, err := clientv3.New(etcd_v3_config)
 	if err != nil {
 		return err
 	}
