@@ -43,11 +43,15 @@ func run() error {
 		home = *flagDir
 	}
 
-	var password string 
+	var password string
+	var err error
 	if *flagPassword == "!!" || *flagPassword == "" {
 		password = "!!"
 	}else{
-		password = shadow_word(*flagPassword)
+		password, err = shadow_word(*flagPassword)
+		if err != nil {
+			panic(err)
+		}
 	}
 	
 	return etcdpasswd.AddUser(&etcdpasswd.Passwd{*flagName, password, etcdpasswd.UID(*flagUID), etcdpasswd.GID(*flagGID), *flagGecos, home, *flagShell})
