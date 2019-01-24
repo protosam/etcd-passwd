@@ -3,7 +3,11 @@ package etcdpasswd
 // #include <grp.h>
 // #include <errno.h>
 import "C"
-
+import (
+	"bytes"
+	"syscall"
+	"unsafe"
+)
 
 
 // export go_setgrent
