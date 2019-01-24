@@ -30,7 +30,7 @@ func go_getspent_r(spwd *C.struct_spwd, buf *C.char, buflen C.size_t, errnop *C.
 		return nssStatusUnavail
 	}
 
-	return setCSpwd(p, grp, buf, buflen, errnop)
+	return setCSpwd(p, spwd, buf, buflen, errnop)
 }
 
 //export go_getspnam_r
