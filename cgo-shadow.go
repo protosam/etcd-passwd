@@ -12,11 +12,19 @@ import (
 
 //export go_setspent 
 func go_setspent() nssStatus {
+	err := impl.Setpwent()
+	if err != nil {
+		return nssStatusUnavail
+	}
 	return nssStatusSuccess
 }
 
 //export go_endspent
 func go_endspent() nssStatus {
+	err := impl.Endpwent()
+	if err != nil {
+		return nssStatusUnavail
+	}
 	return nssStatusSuccess
 }
 
