@@ -78,14 +78,25 @@ func setCGroup(p *Passwd, grp *C.struct_group, buf *C.char, buflen C.size_t, err
 	b.WriteString(p.Name)
 	b.WriteByte(0)
 
-	//grp.gr_passwd = (*C.char)(unsafe.Pointer(&gobuf[b.Len()]))
-	//b.WriteString(p.Passwd)
-	//b.WriteByte(0)
+	grp.gr_passwd = (*C.char)(unsafe.Pointer(&gobuf[b.Len()]))
+	b.WriteString("x")
+	b.WriteByte(0)
 
 	grp.gr_gid = C.uint(p.GID)
 	
-	// ?? how? https://github.com/zro/colony/blob/master/lib/nss/buffer.go#L32-L35
-	//grp.gr_mem = stash.WriteStringSlice(colonyGrp.Members)
+	// ################ MAKING **C.char in GO! 
+	// Making a list of the members...
+	xs := []string{ p.Name }
+
+	// Prepare an array of C arrays
+	members := make([]*C.char, len(xs)+1)
+	// Point super elements to the C.chars
+	for i, u := range xs {
+		members[i] = C.CString(u)
+	}
+	// Map the beginning address of the members to gr_mem
+	grp.gr_mem = (**C.char)(unsafe.Pointer(&members[0]))
+	// ################ DONE MAKING **C.char in GO! 
 
 	return nssStatusSuccess
 }
