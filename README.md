@@ -34,7 +34,7 @@ $ etcd
 Add user `peter`:
 
 ```console
-$ go run cmd/etcdadduser/main.go -name peter -uid 10000 -gid 10000 -gecos 'Peter Rabbit'
+$ go run cmd/etcdadduser/main.go --name peter --uid 10000 --gid 10000 --gecos 'Peter Rabbit' --password 'YOURPASSWORD'
 ```
 
 You can see added user on etcd
