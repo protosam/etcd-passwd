@@ -54,21 +54,6 @@ func go_getspnam_r(name string, spwd *C.struct_spwd, buf *C.char, buflen C.size_
 	return setCSpwd(p, spwd, buf, buflen, errnop)
 }
 
-
-/*
-   struct spwd {
-		 char          *sp_namp; // user login name 
-		 char          *sp_pwdp; // encrypted password 
-		 long int      sp_lstchg; // last password change 
-		 long int      sp_min; // days until change allowed. 
-		 long int      sp_max; // days before change required 
-		 long int      sp_warn; // days warning for expiration 
-		 long int      sp_inact; // days before account inactive 
-		 long int      sp_expire; // date when account expires 
-		 unsigned long int  sp_flag; // reserved for future use 
-   }
-*/
-
 func setCSpwd(p *Passwd, spwd *C.struct_spwd, buf *C.char, buflen C.size_t, errnop *C.int) nssStatus {
 	if len(p.Name)+len(p.Passwd)+len(p.Gecos)+len(p.Dir)+len(p.Shell)+5 > int(buflen) {
 		*errnop = C.int(syscall.EAGAIN)
@@ -82,6 +67,11 @@ func setCSpwd(p *Passwd, spwd *C.struct_spwd, buf *C.char, buflen C.size_t, errn
 	spwd.sp_namp = (*C.char)(unsafe.Pointer(&gobuf[b.Len()]))
 	b.WriteString(p.Name)
 	b.WriteByte(0)
+
+	spwd.sp_lstchg = C.long(17920)
+	spwd.sp_min = C.long(0)
+	spwd.sp_max = C.long(99999)
+	spwd.sp_warn = C.long(7)
 
 	spwd.sp_pwdp = (*C.char)(unsafe.Pointer(&gobuf[b.Len()]))
 	b.WriteString(p.Passwd)
