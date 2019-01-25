@@ -60,3 +60,6 @@ uid=10000(peter) gid=10000 groups=10000
 ## License
 
 MIT
+
+-----
+shadow and group functionality added by Sam Peterson <sam.igknighted@gmail.com>
